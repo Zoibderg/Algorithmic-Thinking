@@ -20,7 +20,7 @@ We can think of each snowlfakes as a circle. These two snowflakes are identical 
 
 Third example snowflakes:\
 `[1, 2, 3, 4, 5, 6]`\
-`[3, 2, 1, 6, 5, 4]`\
+`[3, 2, 1, 6, 5, 4]`
 
 If we start with the 1 in the second snowflake and move right (wrapping around to the left), we would get `[1, 6, 5, 4, 3, 2]`, which is not even close to our first snowflake.\
 However, if we begin at the 1 in the second snowflake and move left instead, then we get exactly `[1, 2, 3, 4, 5, 6]`
