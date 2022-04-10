@@ -1,4 +1,4 @@
-class Snowflakes:
+class Snowflake:
     """
     Overall class to manage our snowflakes
     """
@@ -21,5 +21,5 @@ class Snowflakes:
 
 if __name__ == '__main__':
     a = [1, 2, 3, 1, 5]
-    SF = Snowflakes(a, 5)
+    SF = Snowflake(a, 5)
     print(SF.identify_identical())
