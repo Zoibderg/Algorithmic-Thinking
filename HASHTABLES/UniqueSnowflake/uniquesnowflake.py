@@ -7,9 +7,12 @@ class UniqueSnowflake:
     """
 
     def identical_right(self, flake2: Snowflake, start=0) -> bool:
+        """
+        Determine if 2 snowflakes are identical clockwise.
+        """
         flake1 = self
         for i, j in itertools.product(range(flake1.n), range(flake2.n)):
-            if flake1.values[i] == flake2.values[j]:
+            if flake1.values[i] == flake2.values[j]:  # find 
                 offset = j
                 while start < flake2.n:
                     if offset >= flake1.n:
@@ -20,7 +23,7 @@ class UniqueSnowflake:
                         start += 1
                         offset += 1
                 return True
-                    
+        return False
 
     def identical_left(self, flake2: Snowflake) -> bool:
         flake1 = self
@@ -37,6 +40,7 @@ class UniqueSnowflake:
                         start -= 1
                         offset -= 1
                 return True
+        return False
 
 
     def are_identical(self, flake2: Snowflake) -> bool:
