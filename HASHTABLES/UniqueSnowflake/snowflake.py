@@ -3,9 +3,12 @@ class Snowflake:
     Overall class to manage our snowflakes
     """
 
-    def __init__(self, values: list[int], n: int):
-        self.values = values
-        self.n = n
+    def __init__(self, values: list[int]):
+        """
+        What defines a snowflake?
+        """
+        self.values = values  # the length of each snowflake arm
+        self.n = len(values)  # the amount of arms the snowflake has/this is limited to 6
 
     def identify_identical(self) -> str:
         # set pointers
@@ -23,6 +26,6 @@ class Snowflake:
         return "No two integers are alike.\n"
 
 if __name__ == '__main__':
-    a = [1, 2, 3, 1, 5]
-    SF = Snowflake(a, 5)
-    print(SF.identify_identical())
+    SF1 = Snowflake([1, 2, 3, 4, 5, 6])
+    SF2 = Snowflake([4, 5, 6, 1, 2, 3])
+    print(SF1.are_identical(SF2))
