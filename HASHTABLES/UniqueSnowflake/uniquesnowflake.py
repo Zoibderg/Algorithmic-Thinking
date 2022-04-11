@@ -37,7 +37,7 @@ class UniqueSnowflake:
         for i, j in itertools.product(range(flake1.n), range(flake2.n)):
             if flake1.values[i] == flake2.values[j]:  # find matching integers in snowflakes
                 offset = j - 1
-                while start > 0:
+                while start >= 0:
                     # matching integers found, check entire snowflakes
                     if offset < 0:
                         offset += flake1.n
@@ -61,7 +61,4 @@ class UniqueSnowflake:
         UniqueSnowflake.identical_left(flake1, flake2))
 
 if __name__ == '__main__':
-    US = UniqueSnowflake
-    SF1 = Snowflake([1, 2, 3, 4, 5, 6])
-    SF2 = Snowflake([4, 5, 6, 1, 2, 3])
-    print(US.are_identical(SF1, SF2))
+    Snowflake = Snowflake([1, 2, 3, 4, 5, 6])
