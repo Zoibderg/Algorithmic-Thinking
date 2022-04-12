@@ -57,8 +57,16 @@ class UniqueSnowflake:
         Check if 2 snowflakes are identical, both clockwise and counter-clockwise.
         """
         flake1 = self
-        return (UniqueSnowflake.identical_right(flake1, flake2) == 
-        UniqueSnowflake.identical_left(flake1, flake2))
+        if (UniqueSnowflake.identical_right(flake1, flake2) == 
+            UniqueSnowflake.identical_left(flake1, flake2)):  # edge case
+            # both left and right passed or failed, return either
+            return (UniqueSnowflake.identical_left(flake1, flake2) or 
+                    UniqueSnowflake.identical_right(flake1, flake2))
+        # one case failed, snoflakes cannot match
+        else:
+            return False
 
 if __name__ == '__main__':
-    Snowflake = Snowflake([1, 2, 3, 4, 5, 6])
+    sf1 = Snowflake([1, 2, 3, 4, 5, 6])
+    sf2 = Snowflake([4, 5, 6, 1, 2, 3])
+    print(UniqueSnowflake.are_identical(sf1, sf2))
