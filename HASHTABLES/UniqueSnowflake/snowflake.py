@@ -10,7 +10,7 @@ class Snowflake:
         self.values = values  # the length of each snowflake arm
         self.n = len(values)  # the amount of arms the snowflake has/this is limited to 6
 
-    def identify_identical(self) -> str:
+    def identify_identical_integers(self) -> str:
         # set pointers
         i = 0
         j = i + 1  # we never want j == i

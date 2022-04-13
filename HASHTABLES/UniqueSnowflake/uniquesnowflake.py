@@ -66,7 +66,22 @@ class UniqueSnowflake:
         else:
             return False
 
+    def identify_identical_snowflakes(self, n: int) -> str:
+        snowflakes = self
+        i = 0
+        j = i + 1
+        while i < n:
+            while j < n:
+                if UniqueSnowflake.are_identical(snowflakes[i], snowflakes[j]):
+                    return ("Twin snowflakes found:\n" + 
+                    f"{snowflakes[i].values} -> {snowflakes[j].values}")
+                j += 1
+            i += 1
+        return "No two snowflakes are alike.\n"
+
+
 if __name__ == '__main__':
     sf1 = Snowflake([1, 2, 3, 4, 5, 6])
     sf2 = Snowflake([4, 5, 6, 1, 2, 3])
-    print(UniqueSnowflake.are_identical(sf1, sf2))
+    snowflakes = [sf1, sf2]
+    print(UniqueSnowflake.identify_identical_snowflakes(snowflakes, len(snowflakes)))
