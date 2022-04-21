@@ -23,12 +23,10 @@ class ReadSnowflakes:
                 counter += 1
 
     def findUsnowflakes(self):
-        for i, j in range(len(self.snowflakes)):
-            UniqueSnowflake.identify_identical_snowflakes(self.snowflakes[i], 
-            self.snowflakes[j], self.n)
+        return UniqueSnowflake.identify_identical_snowflakes(self.snowflakes, self.n)
         
 
 if __name__ == '__main__':
     RFlake = ReadSnowflakes()
     RFlake.read_file('/Users/austintesch/Documents/GitHub/Algorithmic_Thinking/HASHTABLES/UniqueSnowflake/input.txt')
-    RFlake.findUsnowflakes()
+    print(RFlake.findUsnowflakes())
