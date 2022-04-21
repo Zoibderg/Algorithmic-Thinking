@@ -15,9 +15,9 @@ class ReadSnowflakes:
         with open(file, 'r') as f:
             for line in f:
                 if counter <= 0:
-                    self.n = int(line)
+                    self.n += int(line)
                 else:
-                    snowflake = [int(integer) for integer in line if integer != '\n']
+                    snowflake = [int(integer) for integer in line if integer not in ['\n', ' ']]
                     snowflake = Snowflake(snowflake)
                     self.snowflakes.append(snowflake)
                 counter += 1
