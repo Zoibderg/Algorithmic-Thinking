@@ -7,19 +7,25 @@ class ReadSnowflakes:
     """
 
     def __init__(self):
-        self.snowflakes = []
-        self.n = 0
+        """
+        init snowflake storage
+        """
+        self.snowflakes = []  # all stored snoflakes
+        self.n = 0  # total amount of snoflakes stored
 
     def read_file(self, file):
-        counter = 0
+        counter = 0  # counter for tracking line
         with open(file, 'r') as f:
             for line in f:
                 if counter <= 0:
+                    # first line states total snowflakes in file
                     self.n += int(line)
                 else:
+                    # after first line, each line represents a snowflake
+                    # build snowflake from line
                     snowflake = [int(integer) for integer in line if integer not in ['\n', ' ']]
                     snowflake = Snowflake(snowflake)
-                    self.snowflakes.append(snowflake)
+                    self.snowflakes.append(snowflake)  # add snowflake to storage
                 counter += 1
 
     def findUsnowflakes(self):
