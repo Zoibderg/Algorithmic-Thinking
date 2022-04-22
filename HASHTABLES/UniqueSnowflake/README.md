@@ -37,3 +37,10 @@ The first line of input is an integer *n*, which give the number of snowflakes t
 Our output will be a single line of text:
 - If there are not identical snowflakes, print exactly: 'No two snowflakes are alike'
 - If there are at least two identical snowflakes print exactly: 'Twin snowflakes found.'
+
+We will also take the output one step further:
+- If there are not identical snowflakes, print exactly: 'No two snowflakes are alike'
+- If there is only one set of twins, print exactly: 'Twin snowflakes found.\n [snowflake1] -> [snowflake2]'
+- If there are multiple sets of twins, print exactly: 'Multiple twin snowflakes found.\n [snowflake1] -> [snowflake2]\n [snowflake3] -> [snowflake4]'
+- BOUNS? If there are triplets (or more), return exactly: 'Non-Unique indentical snowflakes found\n [snowflake1] -> [snowflake2] -> [snowflake3]
+  - I'm not sure how easy this will be to handle.
