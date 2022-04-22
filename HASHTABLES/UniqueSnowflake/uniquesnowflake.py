@@ -68,8 +68,16 @@ class UniqueSnowflake:
 
     def identify_identical_snowflakes(self, n: int) -> str:
         """
-        TODO: This is not able to handle a list that has more than one snowflake twin.
-        an edge case needs to be added for this
+        TODO: add two edge cases for multiple twins
+        if multiple twins are found:
+            return all sets of twins
+        if a triplit is found:
+            return "Non-Uniquie identical snowflakes found"
+            snoflakes[i].values -> snoflakes[j].values -> ???
+            how will we track this
+            what should be the cap?
+            i.e. if we get a list of all matching snowflakes except two
+            we will only wnat to know the uniquie tiwns. 
         """
         snowflakes = self
         # set pointers
