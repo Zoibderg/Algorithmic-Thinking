@@ -67,6 +67,10 @@ class UniqueSnowflake:
             return False
 
     def identify_identical_snowflakes(self, n: int) -> str:
+        """
+        TODO: This is not able to handle a list that has more than one snowflake twin.
+        an edge case needs to be added for this
+        """
         snowflakes = self
         # set pointers
         i = 0
