@@ -28,4 +28,5 @@ jobs:
         shell: bash -l {0}
         run: |
             ls -a
+            cd ./HASHTABLES/UniqueSnowflake/tests
             python -m unittest
