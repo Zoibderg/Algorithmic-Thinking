@@ -29,5 +29,5 @@ jobs:
         run: |
             cd
             ls -a
-            cd ./conda
+            cd ./.conda
             ls -a
