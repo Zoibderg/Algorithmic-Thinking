@@ -29,20 +29,5 @@ jobs:
         run: |
             cd
             ls -a
-            cd ./conda_pkgs_dir
-            ls -a
-            cd
-            cd ./factory
-            ls -a
-            cd
-            cd ./perflog
-            ls -a
-            cd
-            cd ./runners
-            ls -a
-            cd
-            cd ./warmup
-            ls -a
-            cd
-            cd ./work
+            cd ./conda
             ls -a
