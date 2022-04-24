@@ -28,4 +28,4 @@ jobs:
         shell: bash -l {0}
         run: |
             cd
-            python ./work/Algorithmic_Thinking/HASHTABLES/UniqueSnowflake/tests/test.py
+            python /work/Algorithmic_Thinking/HASHTABLES/UniqueSnowflake/tests/test.py
