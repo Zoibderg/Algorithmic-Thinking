@@ -28,5 +28,5 @@ jobs:
         shell: bash -l {0}
         run: |
             cd
-            cd work
-            ls -a
+            cd work/Algorithmic-Thinking/HASHTABLES/UniqueSnowflake/tests
+            ls
