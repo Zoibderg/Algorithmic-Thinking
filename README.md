@@ -1,6 +1,6 @@
 # Problems from Algorithmic Thinking by Daniel Zingaro
 
-[![Run Python Tests](https://github.com/Zoibderg/Algorithmic-Thinking/actions/workflows/PEPchk&tests.yml/badge.svg)](https://github.com/Zoibderg/Algorithmic-Thinking/actions/workflows/PEPchk&tests.yml)
+[![UNIQUESNOWFLAKE TESTS](https://github.com/Zoibderg/Algorithmic-Thinking/actions/workflows/PEPchk&tests.yml/badge.svg)](https://github.com/Zoibderg/Algorithmic-Thinking/actions/workflows/PEPchk&tests.yml)
 
 ### Breif Contents
 - Hash Tables
