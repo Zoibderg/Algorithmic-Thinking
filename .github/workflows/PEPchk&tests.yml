@@ -13,7 +13,7 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
-          python-version: 3.8
+          python-version: 3.9
       - shell: bash -l {0}
         run: |
           conda info
@@ -27,8 +27,6 @@ jobs:
       - name: Run tests
         shell: bash -l {0}
         run: |
-            brew udpate
-            brew upgrade python
             python --version
             python3 --version
             cd
