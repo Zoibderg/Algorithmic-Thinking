@@ -68,7 +68,7 @@ class UniqueSnowflake:
 
     def identify_identical_snowflakes(self, n: int) -> str:
         snowflakes = self
-        foundput = f"{twincount} Twin Snowflakes found:\n"
+        foundput = "Twin snowflakes found:\n"
         twincount = 0
         memo = []
         for i, j in itertools.product(range(n), range(n)):
@@ -77,4 +77,4 @@ class UniqueSnowflake:
                 foundput += f"{snowflakes[i].values} -> {snowflakes[j].values}\n"
                 twincount += 1
         # we have been through all snowflakes
-        return foundput if twincount > 0 else "No Twin snoflakes found.\n"
+        return f'{str(twincount)} {foundput}' if twincount > 0 else "No Twin snoflakes found.\n"
