@@ -67,33 +67,17 @@ class UniqueSnowflake:
             return False
 
     def identify_identical_snowflakes(self, n: int) -> str:
-        """
-        TODO: add two edge cases for multiple twins
-        if multiple twins are found:
-            return all sets of twins
-        if a triplit is found:
-            return "Non-Uniquie identical snowflakes found"
-            snoflakes[i].values -> snoflakes[j].values -> ???
-            how will we track this
-            what should be the cap?
-            i.e. if we get a list of all matching snowflakes except two
-            we will only wnat to know the uniquie tiwns. 
-        """
         snowflakes = self
-        # set pointers
-        i = 0
-        j = i + 1  # j should never == i
-        while i < n:
-            while j < n:
-                if UniqueSnowflake.are_identical(snowflakes[i], snowflakes[j]):
-                    # idenifed twin snowflakes
-                    return ("Twin snowflakes found:\n" + 
-                    f"{snowflakes[i].values} -> {snowflakes[j].values}")
-                j += 1
-            i += 1
+        foundput = "Twin snowflakes found:\n"
+        twincount = 0
+        memo = []
+        for i, j in itertools.product(range(n), range(n)):
+            if i != j and (UniqueSnowflake.are_identical(snowflakes[i], snowflakes[j]) and snowflakes[i] and snowflakes[j] not in memo):
+                memo.extend((snowflakes[i], snowflakes[j]))
+                foundput += f"{snowflakes[i].values} -> {snowflakes[j].values}\n"
+                twincount += 1
         # we have been through all snowflakes
-        return "No two snowflakes are alike.\n"
-
+        return foundput if twincount > 0 else "No Twin snoflakes found.\n"
 
 if __name__ == '__main__':
     sf1 = Snowflake([1, 2, 3, 4, 5, 6])
