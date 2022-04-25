@@ -78,9 +78,3 @@ class UniqueSnowflake:
                 twincount += 1
         # we have been through all snowflakes
         return foundput if twincount > 0 else "No Twin snoflakes found.\n"
-
-if __name__ == '__main__':
-    sf1 = Snowflake([1, 2, 3, 4, 5, 6])
-    sf2 = Snowflake([4, 5, 6, 1, 2, 3])
-    snowflakes = [sf1, sf2]
-    print(UniqueSnowflake.identify_identical_snowflakes(snowflakes, len(snowflakes)))
