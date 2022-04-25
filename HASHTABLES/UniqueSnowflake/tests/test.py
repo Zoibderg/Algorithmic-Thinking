@@ -1,3 +1,4 @@
+from enum import unique
 import unittest
 import random
 import sys,os
@@ -71,13 +72,19 @@ class TestSnowflake(unittest.TestCase):
     def test_multiple_twins(self):
         sf1, sf2, sf3, sf4 = (self.sf([1, 2, 3, 4, 5, 6]), self.sf([4, 5, 6, 1, 2, 3]),
         self.sf([7, 8, 9, 1, 2, 3]), self.sf([1, 2, 3, 7, 8, 9]))
+        foundput = "Twin snowflakes found:\n" + f"[1, 2, 3, 4, 5, 6] -> [4, 5, 6, 1, 2, 3]\n" + f"[7, 8, 9, 1, 2, 3] -> [1, 2, 3, 7, 8, 9]\n"
+
+        snowflakes = [sf1, sf2, sf3, sf4]
+        iis = self.us.identify_identical_snowflakes(snowflakes, len(snowflakes))
+        self.assertEqual(iis, f'{2} {foundput}')
+
+    def test_nonuniqueness(self):
+        sf1, sf2 = self.sf([1, 2, 3, 4, 5, 6]), self.sf([1, 2, 3, 4, 5, 6])
+        sf3, sf4 = self.sf([1, 2, 3, 4, 5, 6]), self.sf([1, 2, 3, 4, 5, 6])
         snowflakes = [sf1, sf2, sf3, sf4]
 
-        twincount = 2
-        foundput = "Twin snowflakes found:\n" + f"[1, 2, 3, 4, 5, 6] -> [4, 5, 6, 1, 2, 3]\n" + f"[7, 8, 9, 1, 2, 3] -> [1, 2, 3, 7, 8, 9]\n"
-        
         iis = self.us.identify_identical_snowflakes(snowflakes, len(snowflakes))
-        self.assertEqual(iis, f'{str(twincount)} {foundput}')
+        self.assertEqual(iis, "No Uniquie snowflakes found.")
         
 if __name__ == '__main__':
     unittest.main()
