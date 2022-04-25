@@ -80,6 +80,8 @@ class UniqueSnowflake:
             we will only wnat to know the uniquie tiwns. 
         """
         snowflakes = self
+        foundput = "Twin snowflakes found:\n"
+        twincount = 0
         # set pointers
         i = 0
         j = i + 1  # j should never == i
@@ -87,16 +89,9 @@ class UniqueSnowflake:
             while j < n:
                 if UniqueSnowflake.are_identical(snowflakes[i], snowflakes[j]):
                     # idenifed twin snowflakes
-                    return ("Twin snowflakes found:\n" + 
-                    f"{snowflakes[i].values} -> {snowflakes[j].values}")
+                    foundput += f"{snowflakes[i].values} -> {snowflakes[j].values}\n"
+                    twincount += 1
                 j += 1
             i += 1
         # we have been through all snowflakes
-        return "No two snowflakes are alike.\n"
-
-
-if __name__ == '__main__':
-    sf1 = Snowflake([1, 2, 3, 4, 5, 6])
-    sf2 = Snowflake([4, 5, 6, 1, 2, 3])
-    snowflakes = [sf1, sf2]
-    print(UniqueSnowflake.identify_identical_snowflakes(snowflakes, len(snowflakes)))
+        return foundput if twincount > 0 else "No Twin snoflakes found.\n"

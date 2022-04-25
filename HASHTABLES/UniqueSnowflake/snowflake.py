@@ -24,7 +24,3 @@ class Snowflake:
             i += 1
         # no like integers found
         return "No two integers are alike.\n"
-
-if __name__ == '__main__':
-    SF1 = Snowflake([1, 2, 3, 4, 5, 6])
-    SF2 = Snowflake([4, 5, 6, 1, 2, 3])
