@@ -68,7 +68,7 @@ class UniqueSnowflake:
 
     def identify_identical_snowflakes(self, n: int) -> str:
         snowflakes = self
-        foundput = "Twin snowflakes found:\n"
+        foundput = f"{twincount} Twin Snowflakes found:\n"
         twincount = 0
         memo = []
         for i, j in itertools.product(range(n), range(n)):
