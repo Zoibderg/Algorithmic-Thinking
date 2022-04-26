@@ -2,7 +2,6 @@ from dataclasses import replace
 import itertools
 import pprint
 
-from sqlalchemy import over
 from snowflake import Snowflake
 
 class UniqueSnowflake:
