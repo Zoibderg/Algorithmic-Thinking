@@ -24,3 +24,6 @@ class Snowflake:
             i += 1
         # no like integers found
         return "No two integers are alike.\n"
+
+    def __str__(self) -> str:
+        return str(self.values)

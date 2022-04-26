@@ -1,4 +1,7 @@
+from dataclasses import replace
 import itertools
+import pprint
+
 from snowflake import Snowflake
 
 class UniqueSnowflake:
@@ -67,14 +70,23 @@ class UniqueSnowflake:
             return False
 
     def identify_identical_snowflakes(self, n: int) -> str:
+        n = n
         snowflakes = self
-        foundput = "Twin snowflakes found:\n"
-        twincount = 0
-        memo = []
+        memo = {}
+        overflow = {}
         for i, j in itertools.product(range(n), range(n)):
-            if i != j and (UniqueSnowflake.are_identical(snowflakes[i], snowflakes[j]) and snowflakes[i] and snowflakes[j] not in memo):
-                memo.extend((snowflakes[i], snowflakes[j]))
-                foundput += f"{snowflakes[i].values} -> {snowflakes[j].values}\n"
-                twincount += 1
+            if i != j and UniqueSnowflake.are_identical(snowflakes[i], snowflakes[j]) == True:
+                if tuple(snowflakes[i].values) not in memo.keys() and snowflakes[i].values not in memo.values():
+                    memo[tuple(snowflakes[i].values)] = snowflakes[j].values
+                elif tuple(snowflakes[i].values) in memo:
+                    overflow[tuple(snowflakes[i].values)] = snowflakes[j].values
+                    memo.pop(tuple(snowflakes[i].values))
         # we have been through all snowflakes
-        return f'{str(twincount)} {foundput}' if twincount > 0 else "No Twin snoflakes found.\n"
+        if memo:
+            cleanmemo = pprint.pformat(memo)
+            cleanmemo = cleanmemo.strip("{}")
+            cleanmemo = cleanmemo.replace(')', ']')
+            cleanmemo = cleanmemo.replace('(', '[')
+            return f"unique twin snowflakes found:\n{cleanmemo}"
+        else:
+            return "no unique twin snowflakes found"
