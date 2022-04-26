@@ -89,3 +89,5 @@ class UniqueSnowflake:
             cleanmemo = cleanmemo.replace(')', ']')
             cleanmemo = cleanmemo.replace('(', '[')
             return f"unique twin snowflakes found:\n{cleanmemo}"
+        else:
+            return "no unique twin snowflakes found"
