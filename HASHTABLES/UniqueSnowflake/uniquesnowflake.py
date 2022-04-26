@@ -72,9 +72,15 @@ class UniqueSnowflake:
         twincount = 0
         memo = []
         for i, j in itertools.product(range(n), range(n)):
-            if i != j and (UniqueSnowflake.are_identical(snowflakes[i], snowflakes[j]) and snowflakes[i] and snowflakes[j] not in memo):
-                memo.extend((snowflakes[i], snowflakes[j]))
-                foundput += f"{snowflakes[i].values} -> {snowflakes[j].values}\n"
-                twincount += 1
+            if i != j and UniqueSnowflake.are_identical(snowflakes[i], snowflakes[j]):
+                if twincount == 0:
+                        memo.extend((snowflakes[i], snowflakes[j]))
+                        foundput += f"{snowflakes[i].values} -> {snowflakes[j].values}\n"
+                        twincount += 1
+                for k in memo:
+                    if UniqueSnowflake.are_identical(k, snowflakes[i]) == False:
+                        memo.extend((snowflakes[i], snowflakes[j]))
+                        foundput += f"{snowflakes[i].values} -> {snowflakes[j].values}\n"
+                        twincount += 1
         # we have been through all snowflakes
         return f'{str(twincount)} {foundput}' if twincount > 0 else "No Twin snoflakes found.\n"
