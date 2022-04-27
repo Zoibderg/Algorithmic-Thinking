@@ -85,17 +85,6 @@ class TestSnowflake(unittest.TestCase):
 
         iis = self.us.identify_unique_identical_snowflakes(snowflakes, len(snowflakes))
         self.assertEqual(iis, "no unique twin snowflakes found")
-        
-    def test_expose_doubldigit(self):
-        """
-        this test simulates how read file currently reads numbers
-        """
-        # txt file input
-        #[11, 12, 13, 14, 15, 16]
-        #[1, 12, 13, 4, 15, 16]
-        readinput = [self.sf([1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6]), self.sf([1, 1, 2, 1, 3, 4, 1, 5, 1, 6])]
-        identify = self.us.identify_unique_identical_snowflakes(readinput, len(readinput))
-        self.assertEqual(identify, "no unique twin snowflakes found")
 
 if __name__ == '__main__':
     unittest.main()
