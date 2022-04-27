@@ -19,34 +19,24 @@ class UniqueSnowflake:
             if flake1.values[i] == flake2.values[j]:  # find matching integers in snowflakes
                 offset = j
                 while start < flake2.n:
-                    print("right run")
-                    print(f"offset: {offset}")
-                    print(f"start: {start}")
-                    print(flake1.values)
-                    print(flake2.values)
                     # matching integers found, check entire snowflakes
                     if flag == False:
                         if offset >= flake1.n:  # edgecase
                             offset -= flake1.n
-                    else:
-                        if offset < 0 :
-                            offset += flake1.n
-                    if flake1.values[start] != flake2.values[offset]:  
+                    elif offset < 0:
+                        offset += flake1.n
+                    if flake1.values[start] != flake2.values[offset]:
                         # if any values in either snowflake don't match, return False
                         return False
-                    else:
                         # increment pointers
-                        if start != flake2.n - 1:
-                            if flake1.values[start + 1] == flake2.values[offset - 1]:
-                                start += 1
-                                offset -= 1
-                                flag = True
-                            else:
-                                start += 1
-                                offset += 1
-                        else:
-                            start += 1
-                            offset -= 1
+                    if start == flake2.n - 1:
+                        offset -= 1
+                    elif flake1.values[start + 1] == flake2.values[offset - 1]:
+                        offset -= 1
+                        flag = True
+                    else:
+                        offset += 1
+                    start += 1
                 return True
         return False # edgecase
 
@@ -66,36 +56,21 @@ class UniqueSnowflake:
                     if flag == False:
                         if offset < 0:
                             offset += flake1.n
-                    else:
-                        if offset >= flake1.n - 1:
-                            offset -= flake1.n
-                    print("left run")
-                    print(f"offset: {offset}")
-                    print(f"start: {start}")
-                    print(flake1.values)
-                    print(flake2.values)
-                    print (jumps)
-                    print(flag)
-                        
+                    elif offset >= flake1.n - 1:
+                        offset -= flake1.n
                     if flake1.values[start] != flake2.values[offset]:
                         # if any values in any snowflake don't match, return false
                         return False
-                    else:
                         # increment counters
-                        if offset != flake2.n - 1:
-                            if flake1.values[start - 1] == flake2.values[offset + 1]:
-                                start -= 1
-                                offset += 1
-                                flag = True
-                                jumps += 1
-                            else:
-                                start -= 1
-                                offset -= 1
-                                jumps += 1
-                        else:
-                            offset -= 1
-                            start -= 1
-                            jumps += 1
+                    if offset == flake2.n - 1:
+                        offset -= 1
+                    elif flake1.values[start - 1] == flake2.values[offset + 1]:
+                        offset += 1
+                        flag = True
+                    else:
+                        offset -= 1
+                    start -= 1
+                    jumps += 1
                 return True
         return False  # edge case
 
