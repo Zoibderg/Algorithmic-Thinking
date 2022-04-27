@@ -14,20 +14,39 @@ class UniqueSnowflake:
         Determine if 2 snowflakes are identical clockwise.
         """
         flake1 = self
+        flag = False
         for i, j in itertools.product(range(flake1.n), range(flake2.n)):
             if flake1.values[i] == flake2.values[j]:  # find matching integers in snowflakes
                 offset = j
-                while start < flake2.n:  
+                while start < flake2.n:
+                    print("right run")
+                    print(f"offset: {offset}")
+                    print(f"start: {start}")
+                    print(flake1.values)
+                    print(flake2.values)
                     # matching integers found, check entire snowflakes
-                    if offset >= flake1.n:  # edgecase
-                        offset -= flake1.n
-                    elif flake1.values[offset] != flake2.values[start]:  
+                    if flag == False:
+                        if offset >= flake1.n:  # edgecase
+                            offset -= flake1.n
+                    else:
+                        if offset < 0 :
+                            offset += flake1.n
+                    if flake1.values[start] != flake2.values[offset]:  
                         # if any values in either snowflake don't match, return False
                         return False
                     else:
                         # increment pointers
-                        start += 1
-                        offset += 1
+                        if start != flake2.n - 1:
+                            if flake1.values[start + 1] == flake2.values[offset - 1]:
+                                start += 1
+                                offset -= 1
+                                flag = True
+                            else:
+                                start += 1
+                                offset += 1
+                        else:
+                            start += 1
+                            offset -= 1
                 return True
         return False # edgecase
 
@@ -36,21 +55,47 @@ class UniqueSnowflake:
         Determine if 2 snowflakes are identical counter-clockwise.
         """
         flake1 = self
-        start = flake1.n -1  # start pointer at end of snowflake
+        flag = False
+        start = 0  # start pointer at end of snowflake
         for i, j in itertools.product(range(flake1.n), range(flake2.n)):
             if flake1.values[i] == flake2.values[j]:  # find matching integers in snowflakes
-                offset = j - 1
-                while start >= 0:
+                offset = j
+                jumps = 0
+                while jumps < flake1.n:
                     # matching integers found, check entire snowflakes
-                    if offset < 0:
-                        offset += flake1.n
-                    elif flake1.values[offset] != flake2.values[start]:
+                    if flag == False:
+                        if offset < 0:
+                            offset += flake1.n
+                    else:
+                        if offset >= flake1.n - 1:
+                            offset -= flake1.n
+                    print("left run")
+                    print(f"offset: {offset}")
+                    print(f"start: {start}")
+                    print(flake1.values)
+                    print(flake2.values)
+                    print (jumps)
+                    print(flag)
+                        
+                    if flake1.values[start] != flake2.values[offset]:
                         # if any values in any snowflake don't match, return false
                         return False
                     else:
                         # increment counters
-                        start -= 1
-                        offset -= 1
+                        if offset != flake2.n - 1:
+                            if flake1.values[start - 1] == flake2.values[offset + 1]:
+                                start -= 1
+                                offset += 1
+                                flag = True
+                                jumps += 1
+                            else:
+                                start -= 1
+                                offset -= 1
+                                jumps += 1
+                        else:
+                            offset -= 1
+                            start -= 1
+                            jumps += 1
                 return True
         return False  # edge case
 
