@@ -1,3 +1,5 @@
+import re
+
 from snowflake import Snowflake
 from uniquesnowflake import UniqueSnowflake
 
@@ -10,23 +12,17 @@ class ReadSnowflakes:
         """
         init snowflake storage
         """
-        self.snowflakes = []  # all stored snoflakes
+        self.snowflakes = None  # all stored snoflakes
         self.n = 0  # total amount of snoflakes stored
 
     def read_file(self, file):
-        counter = 0  # counter for tracking line
         with open(file, 'r') as f:
-            for line in f:
-                if counter <= 0:
-                    # first line states total snowflakes in file
-                    self.n += int(line)
-                else:
-                    # after first line, each line represents a snowflake
-                    # build snowflake from line
-                    snowflake = [int(integer) for integer in line if integer not in ['\n', ' ']]
-                    snowflake = Snowflake(snowflake)
-                    self.snowflakes.append(snowflake)  # add snowflake to storage
-                counter += 1
+            head = next(f)
+            self.n = int(head)
+            snowflakes = [line.rstrip('\n') for line in f]
+            snowflakes = [[int(i) for i in s.split(' ')] for s in snowflakes]
+            snowflakes = [Snowflake(s) for s in snowflakes]
+            self.snowflakes = snowflakes
 
     def findUsnowflakes(self):
         return UniqueSnowflake.identify_unique_identical_snowflakes(self.snowflakes, self.n)
