@@ -70,23 +70,34 @@ class UniqueSnowflake:
             return False
 
     def identify_identical_snowflakes(self, n: int) -> str:
-        n = n
-        snowflakes = self
-        memo = {}
-        overflow = {}
+        """
+        iter though snowflakes
+        determine if any snowflakes are identical
+        determine if identical snowflakes are unique
+        """
+        n = n  # total number of snowflakes
+        snowflakes = self  # our list of snowflakes
+        memo = {}  # storage for unique identical snowflakes
+        overflow = {}  # storage non-unique identical snowflakes
+        # iter through list of snowflakes
         for i, j in itertools.product(range(n), range(n)):
+            # check if 2 snowflakes are identical
             if i != j and UniqueSnowflake.are_identical(snowflakes[i], snowflakes[j]) == True:
-                if tuple(snowflakes[i].values) not in memo.keys() and snowflakes[i].values not in memo.values():
+                if (tuple(snowflakes[i].values) not in memo.keys() 
+                and snowflakes[i].values not in memo.values()):  # identical snowflakes are unique
                     memo[tuple(snowflakes[i].values)] = snowflakes[j].values
-                elif tuple(snowflakes[i].values) in memo:
+                elif tuple(snowflakes[i].values) in memo:  # identical snowflakes are non-unique
                     overflow[tuple(snowflakes[i].values)] = snowflakes[j].values
                     memo.pop(tuple(snowflakes[i].values))
         # we have been through all snowflakes
+        # if there are unique identical snowflakes in memo
         if memo:
+            # clean snowflake memo for return
             cleanmemo = pprint.pformat(memo)
             cleanmemo = cleanmemo.strip("{}")
             cleanmemo = cleanmemo.replace(')', ']')
             cleanmemo = cleanmemo.replace('(', '[')
             return f"unique twin snowflakes found:\n{cleanmemo}"
+        # if there are no unique identical snowflakes in memo
         else:
             return "no unique twin snowflakes found"
