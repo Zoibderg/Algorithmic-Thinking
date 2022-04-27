@@ -69,7 +69,7 @@ class UniqueSnowflake:
         else:
             return False
 
-    def identify_identical_snowflakes(self, n: int) -> str:
+    def identify_unique_identical_snowflakes(self, n: int) -> str:
         """
         iter though snowflakes
         determine if any snowflakes are identical

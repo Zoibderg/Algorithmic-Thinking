@@ -29,7 +29,7 @@ class ReadSnowflakes:
                 counter += 1
 
     def findUsnowflakes(self):
-        return UniqueSnowflake.identify_identical_snowflakes(self.snowflakes, self.n)
+        return UniqueSnowflake.identify_unique_identical_snowflakes(self.snowflakes, self.n)
         
 
 if __name__ == '__main__':

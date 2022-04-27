@@ -75,7 +75,7 @@ class TestSnowflake(unittest.TestCase):
         foundput = f"unique twin snowflakes found:\n{sf1}: {sf2}, {sf3}: {sf4}"
 
         snowflakes = [sf1, sf2, sf3, sf4]
-        iis = self.us.identify_identical_snowflakes(snowflakes, len(snowflakes))
+        iis = self.us.identify_unique_identical_snowflakes(snowflakes, len(snowflakes))
         self.assertEqual(iis, foundput)
 
     def test_nonuniqueness(self):
@@ -83,7 +83,7 @@ class TestSnowflake(unittest.TestCase):
         sf3, sf4 = self.sf([1, 2, 3, 4, 5, 6]), self.sf([1, 2, 3, 4, 5, 6])
         snowflakes = [sf1, sf2, sf3, sf4]
 
-        iis = self.us.identify_identical_snowflakes(snowflakes, len(snowflakes))
+        iis = self.us.identify_unique_identical_snowflakes(snowflakes, len(snowflakes))
         self.assertEqual(iis, "no unique twin snowflakes found")
         
 if __name__ == '__main__':
