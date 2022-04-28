@@ -31,4 +31,5 @@ class ReadSnowflakes:
 if __name__ == '__main__':
     RFlake = ReadSnowflakes()
     RFlake.read_file('./HASHTABLES/UniqueSnowflake/input.txt')
+    print("Checking snowflakes ...")
     print(RFlake.findUsnowflakes())
