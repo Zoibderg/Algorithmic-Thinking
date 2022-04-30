@@ -11,6 +11,9 @@ class Snowflake:
         self.n = len(values)  # the amount of arms the snowflake has/this is limited to 6
 
     def identify_identical_integers(self) -> str:
+        """
+        a simple method for finding identical integers in a snowflake if needed
+        """
         # set pointers
         i = 0
         j = i + 1  # we never want j == i
@@ -26,4 +29,7 @@ class Snowflake:
         return "No two integers are alike.\n"
 
     def __str__(self) -> str:
+        """
+        clean print of snowflakes values
+        """
         return str(self.values)
