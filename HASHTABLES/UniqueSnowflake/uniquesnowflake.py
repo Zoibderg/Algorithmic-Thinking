@@ -22,7 +22,10 @@ class UniqueSnowflake:
                 while start < flake1.n:
                     # matching integers found, check entire snowflakes
                     if offset == flake2.n:
-                        offset -= flake2.n
+                        # offset is instantly incresed after this
+                        # to make sure we still check 0 in flake2
+                        # set offset to -1
+                        offset -= flake2.n + 1
                     elif flake1.values[start] != flake2.values[offset]:
                         return False
                     offset += 1
@@ -44,7 +47,7 @@ class UniqueSnowflake:
                     start += 1
                     offset -= 1
                 return True
-            return False
+        return False
 
     def are_identical(self, flake2: Snowflake) -> bool:
         """

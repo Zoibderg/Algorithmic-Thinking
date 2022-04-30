@@ -44,7 +44,7 @@ class TestSnowflake(unittest.TestCase):
 
     def test_identify_leftTrue(self):
         sf1 = self.sf([1, 2, 3, 4, 5, 6])
-        sf2 = self.sf([4, 5, 6, 1, 2, 3])
+        sf2 = self.sf([3, 2, 1, 6, 5, 4])
         il = self.us.identical_left(sf1, sf2)
 
         self.assertEqual(il, True)
