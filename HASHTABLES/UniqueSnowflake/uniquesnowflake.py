@@ -53,13 +53,9 @@ class UniqueSnowflake:
         flake1 = self
         right = UniqueSnowflake.identical_right
         left = UniqueSnowflake.identical_left
-        if not right(flake1, flake2):
-            if left(flake1, flake2):
-                return True
-            else:
-                return False
-        else:
-            return True
+        return (bool(not right(flake1, flake2) 
+        and left(flake1, flake2) 
+        or right(flake1, flake2)))
 
     def identify_unique_identical_snowflakes(self, n: int) -> str:
         """
@@ -75,25 +71,20 @@ class UniqueSnowflake:
         for i, j in itertools.combinations(snowflakes, 2):
             # check if 2 snowflakes are identical
             if check2(i, j):
-                if tuple(i.values) not in memo.keys():
-                    memo[tuple(i.values)] = j.values
+                if tuple(i.values) in memo:
+                    nonU.extend((tuple(i.values), tuple(j.values)))
                 else:
-                    nonU.append(tuple(i.values))
-                    nonU.append(tuple(j.values))
-
+                    memo[tuple(i.values)] = j.values
         for i in nonU:
-            if i in memo.keys():
+            if i in memo:
                 memo.pop(i)
 
         if memo:
             #print("unique twins found:\n")
-            cache = []
-            for key, value in memo.items():
-                cache.append(f"{key} -> {value}")
-            output = str("\n".join(cache))
+            cache = [f"{key} -> {value}" for key, value in memo.items()]
+            output = "\n".join(cache)
             print(f"{len(cache)} unique identical twin snoflakes found:")
             return output.translate({ord(i): '[' for i in '('}).translate({ord(i): ']' for i in ')'})
 
-        # if there are no unique identical snowflakes in memo
         else:
             return "no unique twin snowflakes found"
