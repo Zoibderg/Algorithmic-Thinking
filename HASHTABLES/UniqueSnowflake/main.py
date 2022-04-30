@@ -23,8 +23,11 @@ class ReadSnowflakes:
             snowflakes = [[int(i) for i in s.split(' ')] for s in snowflakes]
             snowflakes = [Snowflake(s) for s in snowflakes]
             self.snowflakes = snowflakes
+            print(f"Total snowflakes: {int(self.n)}")
+            print("Snowflakes:")
             for s in snowflakes:
                 print (s.values)
+            print(f"\n")
 
     def findUsnowflakes(self):
         return UniqueSnowflake.identify_unique_identical_snowflakes(self.snowflakes, self.n)
