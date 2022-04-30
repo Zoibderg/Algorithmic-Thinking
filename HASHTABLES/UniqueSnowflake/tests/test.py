@@ -30,7 +30,7 @@ class TestSnowflake(unittest.TestCase):
         sf1 = self.sf([1, 2, 3, 4, 5, 6])
         sf2 = self.sf([4, 5, 6, 1, 2, 3])
         ir = self.us.identical_right(sf1, sf2)
-        
+
         self.assertEqual(ir, True)
 
     def test_identify_rightFalse(self):
@@ -70,7 +70,7 @@ class TestSnowflake(unittest.TestCase):
     def test_multiple_twins(self):
         sf1, sf2, sf3, sf4 = (self.sf([1, 2, 3, 4, 5, 6]), self.sf([4, 5, 6, 1, 2, 3]),
         self.sf([7, 8, 9, 1, 2, 3]), self.sf([1, 2, 3, 7, 8, 9]))
-        foundput = [f"{tuple(sf1.values)} -> {sf2.values}", f"{tuple(sf3.values)} -> {sf4.values}"]
+        foundput = f"{sf1.values} -> {sf2.values}\n{sf3.values} -> {sf4.values}"
 
         snowflakes = [sf1, sf2, sf3, sf4]
         iis = self.us.identify_unique_identical_snowflakes(snowflakes, len(snowflakes))

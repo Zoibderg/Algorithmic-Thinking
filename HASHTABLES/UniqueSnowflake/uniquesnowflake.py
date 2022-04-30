@@ -87,10 +87,12 @@ class UniqueSnowflake:
 
         if memo:
             #print("unique twins found:\n")
-            store = []
+            cache = []
             for key, value in memo.items():
-                store.append(f"{key} -> {value}")
-            return store
+                cache.append(f"{key} -> {value}")
+            output = str("\n".join(cache))
+            print(f"{len(cache)} unique identical twin snoflakes found:")
+            return output.translate({ord(i): '[' for i in '('}).translate({ord(i): ']' for i in ')'})
 
         # if there are no unique identical snowflakes in memo
         else:
