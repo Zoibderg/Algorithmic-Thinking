@@ -32,7 +32,7 @@ class ReadSnowflakes:
 if __name__ == '__main__':
     RFlake = ReadSnowflakes()
     RFlake.read_file('./HASHTABLES/UniqueSnowflake/input.txt')
-    print(f"Checking {RFlake.n} snowflakes for unique identical twins ...")
-    print(f"\n")
-    time.sleep(1)
+    #print(f"Checking {RFlake.n} snowflakes for unique identical twins ...")
+    #print(f"\n")
+    #time.sleep(1)
     print(RFlake.findUsnowflakes())

@@ -86,7 +86,12 @@ class UniqueSnowflake:
                 memo.pop(i)
 
         if memo:
-            return memo
+            #print("unique twins found:\n")
+            store = []
+            for key, value in memo.items():
+                store.append(f"{key} -> {value}")
+            return store
 
         # if there are no unique identical snowflakes in memo
-        return "no unique twin snowflakes found"
+        else:
+            return "no unique twin snowflakes found"
