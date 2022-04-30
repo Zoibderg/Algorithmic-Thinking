@@ -1,7 +1,7 @@
-from dataclasses import replace
 import itertools
 
 from snowflake import Snowflake
+
 
 class UniqueSnowflake:
     """
@@ -29,7 +29,7 @@ class UniqueSnowflake:
                         offset -= flake2.n
                 # all arms match
                 return True
-        return False # edgecase
+        return False  # edgecase
 
     def identical_left(self, flake2: Snowflake, start=0) -> bool:
         """
@@ -57,9 +57,9 @@ class UniqueSnowflake:
         flake1 = self
         right = UniqueSnowflake.identical_right
         left = UniqueSnowflake.identical_left
-        return (bool(not right(flake1, flake2) 
-        and left(flake1, flake2)  #right fails, left passes
-        or right(flake1, flake2)))  # right passes
+        return (bool(not right(flake1, flake2)
+                and left(flake1, flake2)  # right fails, left passes
+                or right(flake1, flake2)))  # right passes
 
     def identify_unique_identical_snowflakes(self, n: int) -> str:
         """

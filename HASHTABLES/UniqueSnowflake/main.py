@@ -1,8 +1,6 @@
-import re
-import time
-
 from snowflake import Snowflake
 from uniquesnowflake import UniqueSnowflake
+
 
 class ReadSnowflakes:
     """
@@ -33,7 +31,6 @@ class ReadSnowflakes:
     def findUsnowflakes(self):
         # call to identify unique tiwn snowflakes
         return UniqueSnowflake.identify_unique_identical_snowflakes(self.snowflakes, self.n)
-        
 
 if __name__ == '__main__':
     RFlake = ReadSnowflakes()
@@ -41,3 +38,4 @@ if __name__ == '__main__':
     # show prompt of engagement
     print(f"Checking {RFlake.n} snowflakes for unique identical twins ...\n")
     print(RFlake.findUsnowflakes())  # return result
+    
