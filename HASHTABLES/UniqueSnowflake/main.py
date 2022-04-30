@@ -1,4 +1,5 @@
 import re
+import time
 
 from snowflake import Snowflake
 from uniquesnowflake import UniqueSnowflake
@@ -23,11 +24,6 @@ class ReadSnowflakes:
             snowflakes = [[int(i) for i in s.split(' ')] for s in snowflakes]
             snowflakes = [Snowflake(s) for s in snowflakes]
             self.snowflakes = snowflakes
-            print(f"Total snowflakes: {int(self.n)}")
-            print("Snowflakes:")
-            for s in snowflakes:
-                print (s.values)
-            print(f"\n")
 
     def findUsnowflakes(self):
         return UniqueSnowflake.identify_unique_identical_snowflakes(self.snowflakes, self.n)
@@ -36,5 +32,7 @@ class ReadSnowflakes:
 if __name__ == '__main__':
     RFlake = ReadSnowflakes()
     RFlake.read_file('./HASHTABLES/UniqueSnowflake/input.txt')
-    print("Checking snowflakes ...")
+    print(f"Checking {RFlake.n} snowflakes for unique identical twins ...")
+    print(f"\n")
+    time.sleep(1)
     print(RFlake.findUsnowflakes())

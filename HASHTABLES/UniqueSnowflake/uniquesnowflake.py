@@ -69,16 +69,21 @@ class UniqueSnowflake:
         """
         snowflakes = self  # our list of snowflakes
         memo = {}  # storage for unique identical snowflakes
+        nonU = []
         check2 = UniqueSnowflake.are_identical
 
         for i, j in itertools.combinations(snowflakes, 2):
             # check if 2 snowflakes are identical
-            print("checking")
-            print(f"flakei: {i}")
-            print(f"flakej: {j}")
-            print(f"check2: {check2(i, j)}")
             if check2(i, j):
-                memo[tuple(i.values)] = j.values
+                if tuple(i.values) not in memo.keys():
+                    memo[tuple(i.values)] = j.values
+                else:
+                    nonU.append(tuple(i.values))
+                    nonU.append(tuple(j.values))
+
+        for i in nonU:
+            if i in memo.keys():
+                memo.pop(i)
 
         if memo:
             return memo
