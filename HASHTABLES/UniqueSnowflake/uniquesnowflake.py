@@ -1,8 +1,5 @@
 from dataclasses import replace
 import itertools
-import pprint
-
-from sympy import factor_list
 
 from snowflake import Snowflake
 
