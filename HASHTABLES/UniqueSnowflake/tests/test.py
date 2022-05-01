@@ -7,6 +7,7 @@ sys.path.insert(0, BASE)
 
 from snowflake import Snowflake
 from uniquesnowflake import UniqueSnowflake
+from main import ReadSnowflakes
 
 
 class TestSnowflake(unittest.TestCase):
@@ -78,6 +79,7 @@ class TestSnowflake(unittest.TestCase):
 
         snowflakes = [sf1, sf2, sf3, sf4]
         iis = self.us.identify_unique_identical_snowflakes(snowflakes, len(snowflakes))
+
         self.assertEqual(iis, foundput)
 
     def test_nonuniqueness(self):
