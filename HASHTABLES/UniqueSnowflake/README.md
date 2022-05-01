@@ -34,13 +34,8 @@ Putting everything together we can conclude that two snowflakes are identical if
 The first line of input is an integer *n*, which give the number of snowflakes that we'll be processing. The value *n* will be between 1 and 100,000. Each of the following *n* lines represents one snowflake: each line has six integers, where each integer is a leat zero and at most 10,000,000.
 
 ## Output
-Our output will be a single line of text:
-- If there are not identical snowflakes, print exactly: 'No two snowflakes are alike'
-- If there are at least two identical snowflakes print exactly: 'Twin snowflakes found.'
-
-We will also take the output one step further:
-- If there are not identical snowflakes, print exactly: 'No two snowflakes are alike'
-- If there is only one set of twins, print exactly: 'Twin snowflakes found.\n [snowflake1] -> [snowflake2]'
-- If there are multiple sets of twins, print exactly: 'Multiple twin snowflakes found.\n [snowflake1] -> [snowflake2]\n [snowflake3] -> [snowflake4]'
-- BOUNS? If there are triplets (or more), return exactly: 'Non-Unique indentical snowflakes found\n [snowflake1] -> [snowflake2] -> [snowflake3]
-  - I'm not sure how easy this will be to handle.
+Our output will be the following:
+- If identical snowflakes are found print:
+  `"{total number of twins} unique snowflakes found:\n[{snowflake1} -> {snowflake2}]"` etc..
+- If no identical snowflakes are found print:
+  `"no unique twin snowflakes found"`
