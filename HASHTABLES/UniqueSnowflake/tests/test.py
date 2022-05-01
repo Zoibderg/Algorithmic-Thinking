@@ -2,11 +2,11 @@ import unittest
 import sys
 import os
 
-from snowflake import Snowflake
-from uniquesnowflake import UniqueSnowflake
-
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE)
+
+from snowflake import Snowflake
+from uniquesnowflake import UniqueSnowflake
 
 
 class TestSnowflake(unittest.TestCase):
