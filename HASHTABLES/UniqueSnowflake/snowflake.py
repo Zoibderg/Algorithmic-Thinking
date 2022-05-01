@@ -33,4 +33,3 @@ class Snowflake:
         clean print of snowflakes values
         """
         return str(self.values)
-        
