@@ -1,8 +1,7 @@
-from dataclasses import replace
 import itertools
-import pprint
 
 from snowflake import Snowflake
+
 
 class UniqueSnowflake:
     """
@@ -14,80 +13,53 @@ class UniqueSnowflake:
         Determine if 2 snowflakes are identical clockwise.
         """
         flake1 = self
-        flag = False
         for i, j in itertools.product(range(flake1.n), range(flake2.n)):
             if flake1.values[i] == flake2.values[j]:  # find matching integers in snowflakes
                 offset = j
-                while start < flake2.n:
+                while start < flake1.n:
                     # matching integers found, check entire snowflakes
-                    if flag == False:
-                        if offset >= flake1.n:  # edgecase
-                            offset -= flake1.n
-                    elif offset < 0:
-                        offset += flake1.n
                     if flake1.values[start] != flake2.values[offset]:
-                        # if any values in either snowflake don't match, return False
+                        # snowflakes are not identical clockwise
                         return False
-                        # increment pointers
-                    if start == flake2.n - 1:
-                        offset -= 1
-                    elif flake1.values[start + 1] == flake2.values[offset - 1]:
-                        offset -= 1
-                        flag = True
-                    else:
-                        offset += 1
+                    # increment pointers
+                    offset += 1
                     start += 1
+                    if offset > flake2.n - 1:
+                        # offset has reached end, loop to start
+                        offset -= flake2.n
+                # all arms match
                 return True
-        return False # edgecase
+        return False  # edgecase
 
-    def identical_left(self, flake2: Snowflake) -> bool:
+    def identical_left(self, flake2: Snowflake, start=0) -> bool:
         """
         Determine if 2 snowflakes are identical counter-clockwise.
         """
         flake1 = self
-        flag = False
-        start = 0  # start pointer at end of snowflake
         for i, j in itertools.product(range(flake1.n), range(flake2.n)):
             if flake1.values[i] == flake2.values[j]:  # find matching integers in snowflakes
                 offset = j
-                jumps = 0
-                while jumps < flake1.n:
-                    # matching integers found, check entire snowflakes
-                    if flag == False:
-                        if offset < 0:
-                            offset += flake1.n
-                    elif offset >= flake1.n - 1:
-                        offset -= flake1.n
+                while start < flake1.n:
                     if flake1.values[start] != flake2.values[offset]:
-                        # if any values in any snowflake don't match, return false
+                        # snowflakes are not identical counter-clowckwise
                         return False
-                        # increment counters
-                    if offset == flake2.n - 1:
-                        offset -= 1
-                    elif flake1.values[start - 1] == flake2.values[offset + 1]:
-                        offset += 1
-                        flag = True
-                    else:
-                        offset -= 1
-                    start -= 1
-                    jumps += 1
+                    # increment pointers
+                    start += 1
+                    offset -= 1
+                # all arms match
                 return True
-        return False  # edge case
-
+        return False  # edgecase
 
     def are_identical(self, flake2: Snowflake) -> bool:
         """
         Check if 2 snowflakes are identical, both clockwise and counter-clockwise.
         """
         flake1 = self
-        if (UniqueSnowflake.identical_right(flake1, flake2) == 
-            UniqueSnowflake.identical_left(flake1, flake2)):  # edge case
-            # both left and right passed or failed, return either
-            return (UniqueSnowflake.identical_left(flake1, flake2) or 
-                    UniqueSnowflake.identical_right(flake1, flake2))
-        # one case failed, snoflakes cannot match
-        else:
-            return False
+        right = UniqueSnowflake.identical_right
+        left = UniqueSnowflake.identical_left
+        return (bool(not right(flake1, flake2)
+                and left(flake1, flake2)  # right fails, left passes
+                or right(flake1, flake2)))  # right passes
 
     def identify_unique_identical_snowflakes(self, n: int) -> str:
         """
@@ -95,29 +67,35 @@ class UniqueSnowflake:
         determine if any snowflakes are identical
         determine if identical snowflakes are unique
         """
-        n = n  # total number of snowflakes
         snowflakes = self  # our list of snowflakes
         memo = {}  # storage for unique identical snowflakes
-        overflow = {}  # storage non-unique identical snowflakes
-        # iter through list of snowflakes
-        for i, j in itertools.product(range(n), range(n)):
+        overflow = []
+        check2 = UniqueSnowflake.are_identical
+
+        for i, j in itertools.combinations(snowflakes, 2):
             # check if 2 snowflakes are identical
-            if i != j and UniqueSnowflake.are_identical(snowflakes[i], snowflakes[j]) == True:
-                if (tuple(snowflakes[i].values) not in memo.keys() 
-                and snowflakes[i].values not in memo.values()):  # identical snowflakes are unique
-                    memo[tuple(snowflakes[i].values)] = snowflakes[j].values
-                elif tuple(snowflakes[i].values) in memo:  # identical snowflakes are non-unique
-                    overflow[tuple(snowflakes[i].values)] = snowflakes[j].values
-                    memo.pop(tuple(snowflakes[i].values))
-        # we have been through all snowflakes
-        # if there are unique identical snowflakes in memo
+            if check2(i, j):
+                if tuple(i.values) in memo:
+                    # match already found, track in overflow
+                    overflow.extend((tuple(i.values), tuple(j.values)))
+                else:
+                    # new match track in memo
+                    memo[tuple(i.values)] = j.values
+        if overflow:
+            # duplicate matches found
+            for i in overflow:
+                if i in memo:
+                    memo.pop(i)  # remove duplicate matches from memo
+
         if memo:
-            # clean snowflake memo for return
-            cleanmemo = pprint.pformat(memo)
-            cleanmemo = cleanmemo.strip("{}")
-            cleanmemo = cleanmemo.replace(')', ']')
-            cleanmemo = cleanmemo.replace('(', '[')
-            return f"unique twin snowflakes found:\n{cleanmemo}"
-        # if there are no unique identical snowflakes in memo
+            # unique twins found
+            cache = [f"{key} -> {value}" for key, value in memo.items()]
+            output = "\n".join(cache)  # ensure each snowflakes is on new line
+
+            # cleanly output twin snowflakes
+            print(f"{len(cache)} unique identical twin snoflakes found:")
+            return output.translate({ord(i): '[' for i in '('}).translate({ord(i): ']' for i in ')'})
+
         else:
+            # no twins found
             return "no unique twin snowflakes found"

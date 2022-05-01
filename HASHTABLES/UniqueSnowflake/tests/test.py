@@ -1,15 +1,18 @@
-from enum import unique
 import unittest
-import random
-import sys,os
+import sys
+import os
+
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE)
+
 from snowflake import Snowflake
 from uniquesnowflake import UniqueSnowflake
+from main import ReadSnowflakes
+
 
 class TestSnowflake(unittest.TestCase):
     """
-    A class for managing our snowflake tests. 
+    A class for managing our snowflake tests.
     """
 
     def setUp(self):
@@ -44,7 +47,7 @@ class TestSnowflake(unittest.TestCase):
 
     def test_identify_leftTrue(self):
         sf1 = self.sf([1, 2, 3, 4, 5, 6])
-        sf2 = self.sf([4, 5, 6, 1, 2, 3])
+        sf2 = self.sf([3, 2, 1, 6, 5, 4])
         il = self.us.identical_left(sf1, sf2)
 
         self.assertEqual(il, True)
@@ -71,11 +74,12 @@ class TestSnowflake(unittest.TestCase):
 
     def test_multiple_twins(self):
         sf1, sf2, sf3, sf4 = (self.sf([1, 2, 3, 4, 5, 6]), self.sf([4, 5, 6, 1, 2, 3]),
-        self.sf([7, 8, 9, 1, 2, 3]), self.sf([1, 2, 3, 7, 8, 9]))
-        foundput = f"unique twin snowflakes found:\n{sf1}: {sf2}, {sf3}: {sf4}"
+                            self.sf([7, 8, 9, 1, 2, 3]), self.sf([1, 2, 3, 7, 8, 9]))
+        foundput = f"{sf1.values} -> {sf2.values}\n{sf3.values} -> {sf4.values}"
 
         snowflakes = [sf1, sf2, sf3, sf4]
         iis = self.us.identify_unique_identical_snowflakes(snowflakes, len(snowflakes))
+
         self.assertEqual(iis, foundput)
 
     def test_nonuniqueness(self):
@@ -85,6 +89,7 @@ class TestSnowflake(unittest.TestCase):
 
         iis = self.us.identify_unique_identical_snowflakes(snowflakes, len(snowflakes))
         self.assertEqual(iis, "no unique twin snowflakes found")
+
 
 if __name__ == '__main__':
     unittest.main()
